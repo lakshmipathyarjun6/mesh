@@ -198,10 +198,12 @@ def _get_all_extensions():
     ]
 
     undef_macros = []
+    
+    mac_CGAL_args = ['-std=c++17', '-mmacosx-version-min=10.14']
 
-    package_name_and_srcs = [('aabb_normals', ['mesh/src/aabb_normals.cpp'], define_macros_mesh_ext_without_cgal_link, []),
-                             ('spatialsearch', ['mesh/src/spatialsearchmodule.cpp'], define_macros_mesh_ext_without_cgal_link, ['-std=c++17', '-mmacosx-version-min=10.14']),
-                             ('visibility', ['mesh/src/py_visibility.cpp', 'mesh/src/visibility.cpp'], define_macros_mesh_ext_without_cgal_link, []),
+    package_name_and_srcs = [('aabb_normals', ['mesh/src/aabb_normals.cpp'], define_macros_mesh_ext_without_cgal_link, mac_CGAL_args),
+                             ('spatialsearch', ['mesh/src/spatialsearchmodule.cpp'], define_macros_mesh_ext_without_cgal_link, mac_CGAL_args),
+                             ('visibility', ['mesh/src/py_visibility.cpp', 'mesh/src/visibility.cpp'], define_macros_mesh_ext_without_cgal_link, mac_CGAL_args),
                              ('serialization.plyutils', ['mesh/src/plyutils.c', 'mesh/src/rply.c'], [], []),
                              ('serialization.loadobj', ['mesh/src/py_loadobj.cpp'], [], []),
                              ]
