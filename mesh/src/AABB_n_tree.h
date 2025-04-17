@@ -8,7 +8,6 @@
 #define CGAL_CFG_NO_CPP0X_VARIADIC_TEMPLATES 1
 #include <CGAL/AABB_tree.h>
 #include <CGAL/AABB_traits.h>
-#include <CGAL/internal/AABB_tree/nearest_point_triangle_3.h>
 #include <CGAL/Simple_cartesian.h>
 #include <CGAL/AABB_triangle_primitive.h>
 
@@ -18,6 +17,7 @@
 #include <boost/cstdint.hpp>
 #include <boost/array.hpp>
 
+#include "nearest_point_triangle_3_CGAL.hpp"
 
 typedef CGAL::Simple_cartesian<double> K;
 using boost::uint32_t;
