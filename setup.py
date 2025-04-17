@@ -109,7 +109,7 @@ class build_ext(_build_ext):
         # should be possible to have boost on the system
         # assert(self.boost_location is not None), 'the boost location should be provided with the option "--boost-location"'
 
-        ext.include_dirs += [os.path.join(os.path.abspath(self.build_temp), 'CGAL-4.7', 'include')]
+        # ext.include_dirs += [os.path.join(os.path.abspath(self.build_temp), 'CGAL-4.7', 'include')]
         if self.boost_location is not None:
             ext.include_dirs += [self.boost_location]
 
@@ -199,16 +199,16 @@ def _get_all_extensions():
 
     undef_macros = []
 
-    package_name_and_srcs = [('aabb_normals', ['mesh/src/aabb_normals.cpp'], define_macros_mesh_ext_without_cgal_link),
-                             ('spatialsearch', ['mesh/src/spatialsearchmodule.cpp'], define_macros_mesh_ext_without_cgal_link),
-                             ('visibility', ['mesh/src/py_visibility.cpp', 'mesh/src/visibility.cpp'], define_macros_mesh_ext_without_cgal_link),
-                             ('serialization.plyutils', ['mesh/src/plyutils.c', 'mesh/src/rply.c'], []),
-                             ('serialization.loadobj', ['mesh/src/py_loadobj.cpp'], []),
+    package_name_and_srcs = [('aabb_normals', ['mesh/src/aabb_normals.cpp'], define_macros_mesh_ext_without_cgal_link, []),
+                             ('spatialsearch', ['mesh/src/spatialsearchmodule.cpp'], define_macros_mesh_ext_without_cgal_link, ['-std=c++17', '-mmacosx-version-min=10.14']),
+                             ('visibility', ['mesh/src/py_visibility.cpp', 'mesh/src/visibility.cpp'], define_macros_mesh_ext_without_cgal_link, []),
+                             ('serialization.plyutils', ['mesh/src/plyutils.c', 'mesh/src/rply.c'], [], []),
+                             ('serialization.loadobj', ['mesh/src/py_loadobj.cpp'], [], []),
                              ]
 
     out = []
 
-    for current_package_name, src_list, additional_defines in package_name_and_srcs:
+    for current_package_name, src_list, additional_defines, additional_args in package_name_and_srcs:
         ext = _Extension("%s.mesh.%s" % (namespace_package, current_package_name),
                          src_list,
                          language="c++",
@@ -216,8 +216,8 @@ def _get_all_extensions():
                          libraries=[],
                          define_macros=define_macros + additional_defines,
                          undef_macros=undef_macros,
-                         extra_compile_args=extra_args,
-                         extra_link_args=extra_args)
+                         extra_compile_args=extra_args + additional_args,
+                         extra_link_args=extra_args + additional_args)
 
         out += [ext]
 

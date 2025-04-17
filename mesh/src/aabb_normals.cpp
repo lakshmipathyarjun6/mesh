@@ -147,14 +147,14 @@ aabbtree_normals_nearest(PyObject *self, PyObject *args)
                                                       m_sample_n[ss][2])));
     }
 
-    npy_intp result1_dims[] = {1, S};
+    npy_intp result1_dims[] = {1, static_cast<npy_intp>(S)};
 
     PyObject *result1 = PyArray_SimpleNew(2, result1_dims, NPY_UINT32);
 
     uint32_t* closest_triangles=reinterpret_cast<uint32_t*>(PyArray_DATA(result1));
     array<double,3>* closest_point=NULL;
     //if(1) { //nlhs > 1) {
-        npy_intp result2_dims[] = {S, 3};
+        npy_intp result2_dims[] = {static_cast<npy_intp>(S), 3};
         PyObject *result2 = PyArray_SimpleNew(2, result2_dims, NPY_DOUBLE);
         closest_point=reinterpret_cast<array<double,3>*>(PyArray_DATA(result2));
     //}
