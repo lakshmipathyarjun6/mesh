@@ -35,6 +35,13 @@ or on macOS
 $ brew install boost
 ```
 
+You should also install CGAL
+
+```
+sudo apt-get install libcgal-dev
+```
+
+
 Installation
 ------------
 
